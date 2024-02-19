@@ -1,0 +1,33 @@
+name: ValenciaCT
+version: '1.0'
+main: com.vinola.valenciact.ValenciaCT
+api-version: '1.20'
+load: POSTWORLD
+authors: [Vinola]
+description: Valencia Cristais de Teleporte
+website: https://github.com/vinolaa
+softdepend:
+  - DecentHolograms
+  - ParticleNativeAPI
+commands:
+  givep:
+    description: Dá uma pepita de teleporte para o jogador
+    usage: /givep
+  givec:
+    description: Dá um cristal de teleporte para o jogador
+    usage: /givec
+  givew:
+    description: Dá uma waystone de teleporte para o jogador
+    usage: /givew
+  ngui:
+    description: Abre o menu de teleporte
+    usage: /ngui
+  gui:
+    description: Abre o menu de teleporte
+    usage: /gui
+  giver:
+    description: Dá uma removedra de waystone
+    usage: /giver
+  givepedra:
+    description: Dá uma pedra de waystone
+    usage: /givepedra
