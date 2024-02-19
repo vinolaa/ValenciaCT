@@ -40,13 +40,13 @@ public class WaystonePlaceListener implements Listener {
 
             List<WaystoneStructure> playerWaystones = playerWaystoneDataHandler.getPlayerWaystones(player.getUniqueId());
             if (playerWaystones != null && playerWaystones.size() >= 6) {
-                player.sendMessage("Você já atingiu o limite de waystones.");
+                player.sendMessage("§cVocê já atingiu o limite de totens (6)!");
                 return;
             }
 
             if (clickedBlock != null) {
                 if (waystoneStructure.buildWaystone(clickedBlock, player) == 0) {
-                    player.sendMessage("Não é possível construir a estrutura aqui.");
+                    player.sendMessage("§cNão é possível construir a estrutura aqui.");
                     return;
                 }
 
@@ -68,7 +68,7 @@ public class WaystonePlaceListener implements Listener {
                 waystoneStructure.setId(randomUUID().toString());
 
                 playerWaystoneDataHandler.addWaystoneToPlayer(player.getUniqueId(), waystoneStructure);
-                player.sendMessage("Waystone adicionada.");
+                player.sendMessage("§aTotem de teleporte construido com sucesso!");
             }
         }
     }

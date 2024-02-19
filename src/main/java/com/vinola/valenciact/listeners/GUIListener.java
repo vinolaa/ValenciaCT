@@ -22,7 +22,7 @@ public class GUIListener implements Listener {
 
     private void teleportEffect(Location location, Player player) {
         ParticleNativeAPI particleApi = ParticleNativeCore.loadAPI(ValenciaCT.getInstance());
-        particleApi.LIST_1_13.FLAME
+        particleApi.LIST_1_13.SOUL_FIRE_FLAME
                 .packet(true, location)
                 .sendTo(player);
     }

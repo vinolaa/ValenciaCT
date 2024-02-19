@@ -38,14 +38,14 @@ public class StructureBreak implements Listener {
                             event.setCancelled(true);
                             ItemStack nw = new Waystone().getWaystone();
                             player.getInventory().addItem(nw);
-                            player.sendMessage("Waystone removida");
+                            player.sendMessage("§cTotem de teleporte removido com sucesso!");
                         } else {
-                            player.sendMessage("Use a Removedora de Waystone para quebrar a waystone");
+                            player.sendMessage("§cUse o item correto (Removedora de totens) para quebrar seu totem!");
                             event.setCancelled(true);
                             return;
                         }
                     } else {
-                        player.sendMessage("Apenas o proprietário pode quebrar a waystone");
+                        player.sendMessage("§cApenas o proprietário pode remover o totem!");
                         event.setCancelled(true);
                     }
                     return;

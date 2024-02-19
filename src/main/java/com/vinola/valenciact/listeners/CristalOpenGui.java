@@ -28,7 +28,7 @@ public class CristalOpenGui implements Listener {
 
     private void teleportEffect(Location location, Player player) {
         ParticleNativeAPI particleApi = ParticleNativeCore.loadAPI(ValenciaCT.getInstance());
-        particleApi.LIST_1_13.FLAME
+        particleApi.LIST_1_13.SOUL_FIRE_FLAME
                 .packet(true, location)
                 .sendTo(player);
     }
@@ -72,11 +72,11 @@ public class CristalOpenGui implements Listener {
         if (itemInHand.getType() == Material.PAPER && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
             List<WaystoneStructure> playerWaystones = playerWaystoneDataHandler.getPlayerWaystones(player.getUniqueId());
             if (playerWaystones == null || playerWaystones.isEmpty()) {
-                player.sendMessage("§cVocê não tem waystones para se teleportar.");
+                player.sendMessage("§cVocê não tem totens de teleporte para usar!");
             } else {
                 List<WaystoneStructure> activeWaystones = playerWaystones.stream().filter(WaystoneStructure::isActivated).collect(Collectors.toList());
                 if (activeWaystones.isEmpty()) {
-                    player.sendMessage("§cVocê não tem waystones ativas para se teleportar.");
+                    player.sendMessage("§cVocê não tem totens de teleporte ativas para se teleportar!");
                 } else {
                     Random random = new Random();
                     WaystoneStructure randomWaystone = activeWaystones.get(random.nextInt(activeWaystones.size()));
@@ -110,7 +110,7 @@ public class CristalOpenGui implements Listener {
                                 player.sendMessage("§cVocê já está se teleportando, agurade.");
                                 return;
                             }
-                            player.sendMessage("§aTeleportado para a waystone em 2 segundos...");
+                            player.sendMessage("§aTeleportado para o totem de teleporte em 2 segundos...");
                             player.closeInventory();
                             ValenciaCT.teleportingPlayers.add(player);
 
@@ -130,7 +130,7 @@ public class CristalOpenGui implements Listener {
                                 particleTask.cancel();
                                 player.stopSound(Sound.BLOCK_PORTAL_TRAVEL, SoundCategory.PLAYERS);
                                 player.playSound(player.getLocation(), Sound.BLOCK_GRASS_PLACE, 1.0f, 1.0f);
-                                player.sendMessage("§aTeleportado para a waystone.");
+                                player.sendMessage("§aTeleportado para o totem com sucesso!");
                                 cdh.decrementUses(cristalUUID, player);
                                 player.stopSound(Sound.BLOCK_GRASS_PLACE, SoundCategory.PLAYERS);
 

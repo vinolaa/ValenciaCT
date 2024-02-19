@@ -39,19 +39,21 @@ public class WaystoneGUI {
 
         for (int i = 0; i < numWaystones; i++) {
             if (waystones.get(i).isActivated()) {
-                status = "§aAtivado";
-                aux = "§aClique para teleportar";
+                status = "§7Status: §a§lATIVADO";
                 l.add(status);
-                l.add(aux);
+                l.add(" ");
             } else {
-                status = "§cDesativado";
+                status = "§7Status: §c§lDESATIVADO";
                 l.add(status);
             }
             String w = Objects.requireNonNull(waystones.get(i).getLocation().getWorld()).getName();
             int x = (int) waystones.get(i).getLocation().getX();
             int y = (int) waystones.get(i).getLocation().getY();
             int z = (int) waystones.get(i).getLocation().getZ();
-            l.add("§bMundo: " + w + " X: " + x + " Y: " + y + " Z: " + z);
+            l.add("§7Mundo: §b§l" + w + " §7X: §b§l" + x + " §7Y: §b§l" + y + " §7Z: §b§l" + z);
+            l.add(" ");
+            aux = "§eClique para teleportar";
+            l.add(aux);
 
             //items[i] = new ItemStack(Material.GOLD_INGOT);
             items[i] = pedraAzul.clone();

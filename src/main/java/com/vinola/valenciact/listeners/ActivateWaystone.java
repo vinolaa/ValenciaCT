@@ -27,7 +27,7 @@ public class ActivateWaystone implements Listener {
             if (playerWaystones != null) {
                 for (WaystoneStructure waystone : playerWaystones) {
                     if (waystone.getGoldBlock().equals(event.getClickedBlock().getLocation()) && !waystone.isActivated()) {
-                        event.getPlayer().sendMessage("Waystone ativado com sucesso!");
+                        event.getPlayer().sendMessage("§aTotem de teleporte ativado com sucesso!");
                         waystone.setActivated(true);
                         Hologram hologram = DHAPI.getHologram(waystone.getHologram());
                         if (hologram != null) {
@@ -45,7 +45,7 @@ public class ActivateWaystone implements Listener {
                 for (WaystoneStructure waystone : allWaystones) {
                     if (waystone.getGoldBlock().equals(event.getClickedBlock().getLocation())) {
                         if (!playerUUID.equals(waystone.getOwner()) && !waystone.isActivated()) {
-                            event.getPlayer().sendMessage("Apenas o dono pode ativar a Waystone.");
+                            event.getPlayer().sendMessage("§cApenas o proprietário pode ativar o totem!");
                             return;
                         }
                     }
