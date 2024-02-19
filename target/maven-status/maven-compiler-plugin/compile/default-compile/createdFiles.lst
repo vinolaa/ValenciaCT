@@ -20,6 +20,8 @@ com\vinola\valenciact\structures\WaystoneStructure$1.class
 com\vinola\valenciact\listeners\ActivateWaystone.class
 com\vinola\valenciact\customcrafts\CristalCraft.class
 com\vinola\valenciact\customcrafts\WaystoneCraft.class
+com\vinola\valenciact\listeners\CraftListener.class
 com\vinola\valenciact\listeners\WaystonePlaceListener.class
 com\vinola\valenciact\ValenciaCT.class
+com\vinola\valenciact\customitems\CristalBase.class
 com\vinola\valenciact\commands\GiveWaystone.class

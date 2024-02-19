@@ -16,23 +16,22 @@ public class Cristal {
     private final ItemStack cristal;
     private UUID cristalUUID;
 
-    public Cristal(boolean isForRecipe){
-        cristal = new ItemStack(Material.DIAMOND);
+    public Cristal(){
+        cristal = new ItemStack(Material.PAPER);
         ItemMeta cristalMeta = cristal.getItemMeta();
         List<String> cristalLore = new ArrayList<>();
         assert cristalMeta != null;
-        if (!isForRecipe) {
-            CristalDataHandler cdh = CristalDataHandler.getInstance();
-            cristalUUID = UUID.randomUUID();
-            cdh.setUses(cristalUUID, 2);
-            NamespacedKey key = new NamespacedKey(ValenciaCT.getInstance(), "cristalUUID");
-            cristalMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, cristalUUID.toString());
-            cristalMeta.setDisplayName("§bCristal de teleporte §7(Usos restantes: §b" + cdh.getUses(cristalUUID) + "§7)");
-        }
+        CristalDataHandler cdh = CristalDataHandler.getInstance();
+        cristalUUID = UUID.randomUUID();
+        cdh.setUses(cristalUUID, 2);
+        NamespacedKey key = new NamespacedKey(ValenciaCT.getInstance(), "cristalUUID");
+        cristalMeta.getPersistentDataContainer().set(key, PersistentDataType.STRING, cristalUUID.toString());
+        cristalMeta.setDisplayName("§bCristal de teleporte §7(Usos restantes: §b" + cdh.getUses(cristalUUID) + "§7)");
         cristalLore.add("§7Para se teleportar à algum lugar, clique com o botão direito");
         cristalLore.add("");
         cristalLore.add("§ePara fazer um teleporte para alguma das suas marcações, clique com o botão esquerdo");
         cristalMeta.setLore(cristalLore);
+        cristalMeta.setCustomModelData(10070);
         cristal.setItemMeta(cristalMeta);
     }
 

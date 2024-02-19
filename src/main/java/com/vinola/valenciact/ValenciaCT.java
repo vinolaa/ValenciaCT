@@ -8,14 +8,19 @@ import com.vinola.valenciact.storage.CristalDataHandler;
 import com.vinola.valenciact.storage.Database;
 import com.vinola.valenciact.storage.PlayerWaystoneDataHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public final class ValenciaCT extends JavaPlugin {
 
     private static ValenciaCT instance;
     private Database db;
+
+    public static Set<Player> teleportingPlayers = new HashSet<>();
 
     private void regCrafts(){
         new CristalCraft();
@@ -28,6 +33,7 @@ public final class ValenciaCT extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CristalOpenGui(), this);
         Bukkit.getPluginManager().registerEvents(new ActivateWaystone(), this);
         Bukkit.getPluginManager().registerEvents(new StructureBreak(), this);
+        Bukkit.getPluginManager().registerEvents(new CraftListener(), this);
     }
 
     private void regCmds(){

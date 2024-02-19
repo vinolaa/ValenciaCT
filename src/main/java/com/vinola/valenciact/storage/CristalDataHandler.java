@@ -61,7 +61,7 @@ public class CristalDataHandler {
     private void updateCristalName(UUID cristalUUID, Player player) {
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         ItemMeta itemMeta = itemInHand.getItemMeta();
-        if (itemInHand.getType() == Material.DIAMOND && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
+        if (itemInHand.getType() == Material.PAPER && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
             NamespacedKey key = new NamespacedKey(ValenciaCT.getInstance(), "cristalUUID");
             String cristalUUIDString = itemMeta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
             if (cristalUUIDString != null && cristalUUIDString.equals(cristalUUID.toString())) {
@@ -75,7 +75,7 @@ public class CristalDataHandler {
         ItemStack[] inventoryContents = player.getInventory().getContents();
         for (int i = 0; i < inventoryContents.length; i++) {
             ItemStack item = inventoryContents[i];
-            if (item != null && item.getType() == Material.DIAMOND) {
+            if (item != null && item.getType() == Material.PAPER) {
                 ItemMeta itemMeta = item.getItemMeta();
                 if (itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
                     NamespacedKey key = new NamespacedKey(ValenciaCT.getInstance(), "cristalUUID");

@@ -46,7 +46,7 @@ public class CristalOpenGui implements Listener {
 
         Player p = event.getPlayer();
         ItemStack itemInHand = p.getInventory().getItemInMainHand();
-        if (itemInHand.getType() == Material.DIAMOND) {
+        if (itemInHand.getType() == Material.PAPER) {
             ItemMeta itemMeta = itemInHand.getItemMeta();
             if (itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
                 Player player = event.getPlayer();
@@ -69,7 +69,7 @@ public class CristalOpenGui implements Listener {
         ItemStack itemInHand = player.getInventory().getItemInMainHand();
         ItemMeta itemMeta = itemInHand.getItemMeta();
 
-        if (itemInHand.getType() == Material.DIAMOND && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
+        if (itemInHand.getType() == Material.PAPER && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
             List<WaystoneStructure> playerWaystones = playerWaystoneDataHandler.getPlayerWaystones(player.getUniqueId());
             if (playerWaystones == null || playerWaystones.isEmpty()) {
                 player.sendMessage("§cVocê não tem waystones para se teleportar.");
@@ -99,15 +99,20 @@ public class CristalOpenGui implements Listener {
                         teleportLocation.setZ(teleportLocation.getZ() - 0.5);
                     }
 
-                    if (itemInHand.getType() == Material.DIAMOND && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
+                    if (itemInHand.getType() == Material.PAPER && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
                         NamespacedKey key = new NamespacedKey(ValenciaCT.getInstance(), "cristalUUID");
                         String cristalUUIDString = itemMeta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
                         assert cristalUUIDString != null;
                         UUID cristalUUID = UUID.fromString(cristalUUIDString);
                         CristalDataHandler cdh = CristalDataHandler.getInstance();
                         if (cdh.getCristalUses().containsKey(cristalUUID)) {
+                            if (ValenciaCT.teleportingPlayers.contains(player)) {
+                                player.sendMessage("§cVocê já está se teleportando, agurade.");
+                                return;
+                            }
                             player.sendMessage("§aTeleportado para a waystone em 2 segundos...");
                             player.closeInventory();
+                            ValenciaCT.teleportingPlayers.add(player);
 
                             BukkitTask particleTask = Bukkit.getScheduler().runTaskTimer(ValenciaCT.getInstance(), () -> {
                                 for (int i = 0; i < 360; i += 15) {
@@ -131,6 +136,7 @@ public class CristalOpenGui implements Listener {
 
                                 Location particleLocation = player.getLocation().add(player.getLocation().getDirection().multiply(2));
                                 aftterTp(particleLocation, player);
+                                ValenciaCT.teleportingPlayers.remove(player);
                             }, 40L);
                         } else {
                             player.sendMessage("§cEste cristal de teleporte não é válido.");

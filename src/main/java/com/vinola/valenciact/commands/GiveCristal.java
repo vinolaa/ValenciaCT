@@ -12,7 +12,7 @@ public class GiveCristal implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
         Player p = (Player) commandSender;
-        ItemStack cristal = new Cristal(false).getCristal();
+        ItemStack cristal = new Cristal().getCristal();
         p.getInventory().addItem(cristal);
         return true;
     }

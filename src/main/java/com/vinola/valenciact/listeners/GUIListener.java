@@ -3,10 +3,8 @@ package com.vinola.valenciact.listeners;
 import com.github.fierioziy.particlenativeapi.api.ParticleNativeAPI;
 import com.github.fierioziy.particlenativeapi.core.ParticleNativeCore;
 import com.vinola.valenciact.ValenciaCT;
-import com.vinola.valenciact.customitems.Cristal;
 import com.vinola.valenciact.storage.CristalDataHandler;
 import org.bukkit.*;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,12 +12,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class GUIListener implements Listener {
@@ -49,7 +45,7 @@ public class GUIListener implements Listener {
     public void onInventoryClick2(InventoryClickEvent event) {
         if (!event.getView().getTitle().equals("Waystones")) return;
         ItemStack clickedItem = event.getCurrentItem();
-        if (clickedItem != null && clickedItem.getType() == Material.GOLD_INGOT) {
+        if (clickedItem != null && clickedItem.getType() == Material.PAPER) {
             ItemMeta meta = clickedItem.getItemMeta();
             if (meta != null && meta.hasLore()) {
                 List<String> lore = meta.getLore();
@@ -83,15 +79,20 @@ public class GUIListener implements Listener {
                         ItemStack itemInHand = player.getInventory().getItemInMainHand();
                         ItemMeta itemMeta = itemInHand.getItemMeta();
 
-                        if (itemInHand.getType() == Material.DIAMOND && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
+                        if (itemInHand.getType() == Material.PAPER && itemMeta != null && itemMeta.getDisplayName().contains("Cristal de teleporte")) {
                             NamespacedKey key = new NamespacedKey(ValenciaCT.getInstance(), "cristalUUID");
                             String cristalUUIDString = itemMeta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
                             assert cristalUUIDString != null;
                             UUID cristalUUID = UUID.fromString(cristalUUIDString);
                             CristalDataHandler cdh = CristalDataHandler.getInstance();
                             if (cdh.getCristalUses().containsKey(cristalUUID)) {
+                                if (ValenciaCT.teleportingPlayers.contains(player)) {
+                                    player.sendMessage("§cVocê já está se teleportando, agurade.");
+                                    return;
+                                }
                                 player.sendMessage("§aTeleportado para a waystone em 2 segundos...");
                                 player.closeInventory();
+                                ValenciaCT.teleportingPlayers.add(player);
 
                                 BukkitTask particleTask2 = Bukkit.getScheduler().runTaskTimer(ValenciaCT.getInstance(), () -> {
                                     for (int i = 0; i < 360; i += 15) {
@@ -114,6 +115,7 @@ public class GUIListener implements Listener {
                                     player.stopSound(Sound.BLOCK_GRASS_PLACE, SoundCategory.PLAYERS);
                                     Location particleLocation2 = player.getLocation().add(player.getLocation().getDirection().multiply(2));
                                     aftterTp(particleLocation2, player);
+                                    ValenciaCT.teleportingPlayers.remove(player);
                                 }, 40L);
                             } else {
                                 player.sendMessage("§cEste cristal de teleporte não é válido.");
